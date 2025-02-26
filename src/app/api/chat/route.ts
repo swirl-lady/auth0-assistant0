@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { type Message, LangChainAdapter } from 'ai';
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import { ChatOpenAI } from '@langchain/openai';
+import { Calculator } from '@langchain/community/tools/calculator';
 import { SystemMessage } from '@langchain/core/messages';
 import { convertVercelMessageToLangChainMessage } from '@/utils/message-converters';
 import { logToolCallsInDevelopment } from '@/utils/stream-logging';
@@ -25,6 +26,8 @@ export async function POST(req: NextRequest) {
       .filter((message: Message) => message.role === 'user' || message.role === 'assistant')
       .map(convertVercelMessageToLangChainMessage);
 
+    const tools = [new Calculator()];
+    
     const llm = new ChatOpenAI({
       model: 'gpt-4',
       temperature: 0,
@@ -35,7 +38,7 @@ export async function POST(req: NextRequest) {
      */
     const agent = createReactAgent({
       llm,
-      tools: [],
+      tools,
       /**
        * Modify the stock prompt in the prebuilt agent. See docs
        * for how to customize your agent:
