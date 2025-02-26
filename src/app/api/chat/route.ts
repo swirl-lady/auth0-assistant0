@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
 
     // Log tool calling data. Only in development mode
     const transformedStream = logToolCallsInDevelopment(eventStream);
-
+    // Adapt the LangChain stream to Vercel AI SDK Stream
     return LangChainAdapter.toDataStreamResponse(transformedStream);
   } catch (e: any) {
     console.error(e);
