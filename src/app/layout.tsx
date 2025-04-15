@@ -41,7 +41,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 target="_blank"
                 className="flex items-center gap-2 px-4"
               >
-                <Image src="/images/auth0-ai-logo.svg" alt="Auth0 AI Logo" className="h-8" width={143} height={32} />
+                <Image src="/images/auth0-logo.svg" alt="Auth0 AI Logo" className="h-8" width={143} height={32} />
               </a>
               <span className={`${robotoMono.className} text-white text-2xl`}>Assistant0</span>
               <nav className="flex gap-1 flex-col md:flex-row">
