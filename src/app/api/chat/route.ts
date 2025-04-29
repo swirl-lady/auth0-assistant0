@@ -41,13 +41,8 @@ export async function POST(req: NextRequest) {
     const agent = createReactAgent({
       llm,
       tools,
-      /**
-       * Modify the stock prompt in the prebuilt agent. See docs
-       * for how to customize your agent:
-       *
-       * https://langchain-ai.github.io/langgraphjs/tutorials/quickstart/
-       */
-      messageModifier: new SystemMessage(AGENT_SYSTEM_TEMPLATE),
+      // Modify the stock prompt in the prebuilt agent.
+      prompt: AGENT_SYSTEM_TEMPLATE,
     });
 
     /**
