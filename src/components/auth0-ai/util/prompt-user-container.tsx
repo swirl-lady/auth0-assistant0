@@ -1,9 +1,6 @@
-import { ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { Button } from '@/components/ui/button';
+import { cn } from '@/utils/cn';
+import { LogIn } from 'lucide-react';
 
 export interface PromptUserContainerProps {
   title: React.ReactNode;
@@ -45,15 +42,12 @@ export function PromptUserContainer({
 
       {action && (
         <div className="w-full sm:w-fit">
-          <button
-            onClick={() => action.onClick()}
-            className={cn(
-              'w-full sm:w-fit bg-gray-200 text-black whitespace-nowrap rounded-md text-sm font-normal focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 hover:text-white py-2 px-4 transition-all duration-300',
-              action.className,
-            )}
-          >
-            {action.label}
-          </button>
+          <Button asChild variant="default" size="default" onClick={action.onClick}>
+            <a className="flex items-center gap-2">
+              <LogIn />
+              <span>{action.label}</span>
+            </a>
+          </Button>
         </div>
       )}
     </fieldset>

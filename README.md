@@ -27,7 +27,7 @@ Auth0's [Token Vault](https://auth0.com/docs/secure/tokens/token-vault) feature 
 ## Learn more
 
 - [Tool Calling in AI Agents: Empowering Intelligent Automation Securely](https://auth0.com/blog/genai-tool-calling-intro/)
-- [Build a Tool Calling AI Assistant That Can Securely Use Google Services with LangGraph, Vercel AI SDK, and Next.js](https://auth0.com/blog/genai-tool-calling-build-agent-that-calls-gmail-securely-with-langgraph-vercelai-nextjs/)
+- [Build an AI Assistant with LangGraph, Vercel, and Next.js: Use Gmail as a Tool Securely](https://auth0.com/blog/genai-tool-calling-build-agent-that-calls-gmail-securely-with-langgraph-vercelai-nextjs/)
 - [Call Other's APIs on User's Behalf](https://auth0.com/ai/docs/call-others-apis-on-users-behalf)
 
 ## About the template
@@ -35,7 +35,6 @@ Auth0's [Token Vault](https://auth0.com/docs/secure/tokens/token-vault) feature 
 This template scaffolds an Auth0 + LangChain.js + Next.js starter app. It mainly uses the following libraries:
 
 - [LangChain's JavaScript framework](https://js.langchain.com/docs/introduction/) and [LangGraph.js](https://langchain-ai.github.io/langgraphjs/) for building agentic workflows.
-- Vercel's [AI SDK](https://github.com/vercel-labs/ai) to stream tokens to the client and display the incoming messages.
 - The [Auth0 AI SDK](https://github.com/auth0-lab/auth0-ai-js) and [Auth0 Next.js SDK](https://github.com/auth0/nextjs-auth0) to secure the application and call third-party APIs.
 
 It's Vercel's free-tier friendly too! Check out the [bundle size stats below](#-bundle-size).
@@ -65,16 +64,16 @@ Next, install the required packages using your preferred package manager (e.g. `
 Now you're ready to run the development server:
 
 ```bash
-bun dev # or npm run dev
+bun all:dev # or npm run all:dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result! Ask the bot something and you'll see a streamed response:
+This will start an in-memory LangGraph server on port 54367 and a Next.js server on port 3000. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result! Ask the bot something and you'll see a streamed response:
 
 ![A streaming conversation between the user and the AI](/public/images/home-page.png)
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Backend logic lives in `app/api/chat/route.ts`. From here, you can change the prompt and model, or add other modules and logic.
+Agent configuration lives in `src/lib/agent.ts`. From here, you can change the prompt and model, or add other tools and logic.
 
 ## 📦 Bundle size
 

@@ -44,3 +44,5 @@ next-env.d.ts
 
 # vscode
 .vscode
+# LangGraph API
+.langgraph_api
