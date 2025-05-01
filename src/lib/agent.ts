@@ -4,6 +4,7 @@ import { InMemoryStore, MemorySaver } from '@langchain/langgraph';
 import { Calculator } from '@langchain/community/tools/calculator';
 import { SerpAPI } from '@langchain/community/tools/serpapi';
 import { GmailCreateDraft, GmailSearch } from '@langchain/community/tools/gmail';
+import { GoogleCalendarCreateTool, GoogleCalendarViewTool } from '@langchain/community/tools/google_calendar';
 
 import { getAccessToken, withGoogleConnection } from './auth0-ai';
 
@@ -20,12 +21,19 @@ const gmailParams = {
     accessToken: getAccessToken,
   },
 };
+
+const googleCalendarParams = {
+  credentials: { accessToken: getAccessToken, calendarId: 'primary' },
+  model: llm,
+};
 const tools = [
   new Calculator(),
   // Requires process.env.SERPAPI_API_KEY to be set: https://serpapi.com/
   new SerpAPI(),
   withGoogleConnection(new GmailSearch(gmailParams)),
   withGoogleConnection(new GmailCreateDraft(gmailParams)),
+  withGoogleConnection(new GoogleCalendarCreateTool(googleCalendarParams)),
+  withGoogleConnection(new GoogleCalendarViewTool(googleCalendarParams)),
 ];
 
 const checkpointer = new MemorySaver();

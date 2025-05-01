@@ -9,5 +9,9 @@ const auth0AI = new Auth0AI();
 // Connection for Google services
 export const withGoogleConnection = auth0AI.withTokenForConnection({
   connection: 'google-oauth2',
-  scopes: ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.compose'],
+  scopes: [
+    'https://www.googleapis.com/auth/gmail.readonly',
+    'https://www.googleapis.com/auth/gmail.compose',
+    'https://www.googleapis.com/auth/calendar.events',
+  ],
 });
