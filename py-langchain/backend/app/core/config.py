@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     AUTH0_CLIENT_ID: str
     AUTH0_CLIENT_SECRET: str
     AUTH0_SECRET: str
+    AUTH0_SHOP_AUDIENCE: str = "https://api.shop-online-demo.com"
     APP_BASE_URL: str
 
     OPENAI_API_KEY: str
