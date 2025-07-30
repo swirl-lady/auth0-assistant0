@@ -1,6 +1,8 @@
-## Assistant0: An AI Personal Assistant Secured with Auth0 - LangGraph TypeScript Version
+# Assistant0: An AI Personal Assistant Secured with Auth0 - LangGraph TypeScript Version
 
 Assistant0 an AI personal assistant that consolidates your digital life by dynamically accessing multiple tools to help you stay organized and efficient.
+
+![Architecture](./public/images/arch-bg.png)
 
 ## About the template
 
