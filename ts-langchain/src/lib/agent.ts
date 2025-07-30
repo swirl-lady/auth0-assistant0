@@ -10,8 +10,11 @@ import { getAccessToken, withGoogleConnection, withAsyncAuthorization } from './
 import { getUserInfoTool } from './tools/user-info';
 import { shopOnlineTool } from './tools/shop-online';
 import { getContextDocumentsTool } from './tools/context-docs';
+import { checkUsersCalendarTool } from './tools/google-calender';
 
-const AGENT_SYSTEM_TEMPLATE = `You are a personal assistant named Assistant0. You are a helpful assistant that can answer questions and help with tasks. You have access to a set of tools, use the tools as needed to answer the user's question. Render the email body as a markdown block, do not wrap it in code blocks.`;
+const date = new Date().toISOString();
+
+const AGENT_SYSTEM_TEMPLATE = `You are a personal assistant named Assistant0. You are a helpful assistant that can answer questions and help with tasks. You have access to a set of tools, use the tools as needed to answer the user's question. Render the email body as a markdown block, do not wrap it in code blocks. Today is ${date}.`;
 
 const llm = new ChatOpenAI({
   model: 'gpt-4o-mini',
@@ -37,6 +40,7 @@ const tools = [
   withGoogleConnection(new GmailCreateDraft(gmailParams)),
   withGoogleConnection(new GoogleCalendarCreateTool(googleCalendarParams)),
   withGoogleConnection(new GoogleCalendarViewTool(googleCalendarParams)),
+  withGoogleConnection(checkUsersCalendarTool),
   getUserInfoTool,
   withAsyncAuthorization(shopOnlineTool),
   getContextDocumentsTool,

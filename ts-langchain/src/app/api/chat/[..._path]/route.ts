@@ -2,11 +2,11 @@ import { initApiPassthrough } from 'langgraph-nextjs-api-passthrough';
 
 import { getRefreshToken, getAccessToken, getUser } from '@/lib/auth0';
 
-const _credentials = {
+const getCredentials = async () => ({
   refreshToken: await getRefreshToken(),
   accessToken: await getAccessToken(),
   user: await getUser(),
-};
+});
 
 export const { GET, POST, PUT, PATCH, DELETE, OPTIONS, runtime } = initApiPassthrough({
   apiUrl: process.env.LANGGRAPH_API_URL,
@@ -17,7 +17,7 @@ export const { GET, POST, PUT, PATCH, DELETE, OPTIONS, runtime } = initApiPassth
         ...body,
         config: {
           configurable: {
-            _credentials,
+            _credentials: await getCredentials(),
           },
         },
       };
