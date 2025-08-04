@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router";
-import { Github, LogIn, UserPlus } from "lucide-react";
+import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import UserButton from "@/components/auth0/user-button";
 import { ActiveLink } from "@/components/navbar";
