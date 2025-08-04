@@ -1,4 +1,3 @@
-from typing import Optional
 import httpx
 from langchain_core.tools import StructuredTool
 from auth0_ai_langchain.ciba import get_ciba_credentials

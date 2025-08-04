@@ -8,7 +8,7 @@ from auth0_ai_langchain.federated_connections import (
 import datetime
 import json
 
-from app.core.auth0_ai import with_calendar_free_busy_access
+from app.core.auth0_ai import with_calendar_access
 
 
 async def list_upcoming_events_fn():
@@ -51,11 +51,11 @@ async def list_upcoming_events_fn():
     )
 
 
-list_upcoming_events = with_calendar_free_busy_access(
+list_upcoming_events = with_calendar_access(
     StructuredTool(
         name="list_upcoming_events",
         description="List upcoming events from the user's Google Calendar",
         args_schema=BaseModel,
-        func=list_upcoming_events_fn,
+        coroutine=list_upcoming_events_fn,
     )
 )
