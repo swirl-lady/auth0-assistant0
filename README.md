@@ -1,10 +1,11 @@
-## Assistant0: An AI Personal Assistant Secured with Auth0
+# Assistant0: An AI Personal Assistant Secured with Auth0
 
 Assistant0 an AI personal assistant that consolidates your digital life by dynamically accessing multiple tools to help you stay organized and efficient.
 
 Available Versions:
 
 - [LangGraph.js](https://github.com/auth0-samples/auth0-assistant0/tree/main/ts-langchain)
+- [LangGraph Python](https://github.com/auth0-samples/auth0-assistant0/tree/main/py-langchain)
 - [Vercel AI](https://github.com/auth0-samples/auth0-assistant0/tree/main/ts-vercel-ai)
 - [LlamaIndex.TS](https://github.com/auth0-samples/auth0-assistant0/tree/main/ts-llamaindex)
 - [LlamaIndex Python](https://github.com/auth0-samples/auth0-assistant0/tree/main/py-llamaindex)
@@ -23,13 +24,13 @@ With tool-calling capabilities, the possibilities are endless. In this conceptua
 
 ![A streaming conversation between the user and the AI](./public/images/home-page.png)
 
-### Security Challenges with Tool Calling AI Agents
+## Security Challenges with Tool Calling AI Agents
 
 Building such an assistant is not too difficult. Thanks to frameworks like [LangChain](https://www.langchain.com/), [LlamaIndex](https://www.llamaindex.ai/), and [Vercel AI](https://vercel.com/ai), you can get started quickly. The difficult part is doing it securely so that you can protect the user's data and credentials.
 
 Many current solutions involve storing credentials and secrets in the AI agent application’s environment or letting the agent impersonate the user. This is not a good idea, as it can lead to security vulnerabilities and excessive scope and access for the AI agent.
 
-### Tool Calling with the Help of Auth0
+## Tool Calling with the Help of Auth0
 
 This is where Auth0 comes to the rescue. As the leading identity provider (IdP) for modern applications, our upcoming product, [Auth for GenAI](https://a0.to/ai-content), provides standardized ways built on top of OAuth and OpenID Connect to call APIs of tools on behalf of the end user from your AI agent.
 
@@ -49,4 +50,4 @@ This project is open-sourced under the MIT License - see the [LICENSE](LICENSE) 
 
 ## Author
 
-This project is built by [Deepu K Sasidharan](https://github.com/deepu105).
+This project is built by [Deepu K Sasidharan](https://github.com/deepu105) and other contributors.

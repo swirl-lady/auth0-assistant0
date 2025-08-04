@@ -39,7 +39,7 @@ class Settings(BaseSettings):
             self.FRONTEND_HOST
         ]
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 
 settings = Settings()

@@ -22,7 +22,7 @@ auth0_ai = Auth0AI(
 
 with_calendar_free_busy_access = auth0_ai.with_federated_connection(
     connection="google-oauth2",
-    scopes=["https://www.googleapis.com/auth/calendar.freebusy"],
+    scopes=["https://www.googleapis.com/auth/calendar.events"],
 )
 
 protect_tool = auth0_ai.with_async_user_confirmation(
