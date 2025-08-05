@@ -3,7 +3,8 @@ from langchain_core.tools import StructuredTool
 from auth0_ai_langchain.ciba import get_ciba_credentials
 from pydantic import BaseModel
 
-from app.core.auth0_ai import protect_tool
+from app.core.auth0_ai import with_async_user_confirmation
+from app.core.config import settings
 
 
 class BuyOnlineSchema(BaseModel):
@@ -11,8 +12,15 @@ class BuyOnlineSchema(BaseModel):
     quantity: int
 
 
-def shop_online_fn(product: str, quantity: int):
+async def shop_online_fn(product: str, quantity: int):
     """Tool to buy products online."""
+
+    api_url = settings.SHOP_API_URL
+
+    if not api_url.strip():
+        # No API set, mock a response
+        return f"Ordered {quantity} {product}"
+
     credentials = get_ciba_credentials()
 
     if not credentials:
@@ -29,11 +37,12 @@ def shop_online_fn(product: str, quantity: int):
     }
 
     try:
-        response = httpx.post(
-            "https://api.shop-online-demo.com/v1/shop/order",
-            headers=headers,
-            json=data,
-        )
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                api_url,
+                headers=headers,
+                json=data,
+            )
 
         if response.status_code != 200:
             raise ValueError(f"Failed to buy product: {response.text}")
@@ -47,11 +56,11 @@ def shop_online_fn(product: str, quantity: int):
         }
 
 
-shop_online = protect_tool(
+shop_online = with_async_user_confirmation(
     StructuredTool(
         name="shop_online",
         description="Tool to buy products online.",
         args_schema=BuyOnlineSchema,
-        func=shop_online_fn,
+        coroutine=shop_online_fn,
     )
 )
