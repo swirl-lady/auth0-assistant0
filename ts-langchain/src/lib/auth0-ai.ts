@@ -24,7 +24,7 @@ export const withAsyncAuthorization = auth0AI.withAsyncUserConfirmation({
   },
   bindingMessage: async ({ product, qty }) => `Do you want to buy ${qty} ${product}`,
   scopes: ['openid', 'product:buy'],
-  audience: process.env['AUDIENCE']!,
+  audience: process.env['SHOP_API_AUDIENCE']!,
 
   /**
    * When this flag is set to `block`, the execution of the tool awaits

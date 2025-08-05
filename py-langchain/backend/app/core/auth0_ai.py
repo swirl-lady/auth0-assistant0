@@ -19,8 +19,9 @@ with_calendar_access = auth0_ai.with_federated_connection(
     scopes=["https://www.googleapis.com/auth/calendar.events"],
 )
 
-protect_tool = auth0_ai.with_async_user_confirmation(
-    audience=settings.AUTH0_SHOP_AUDIENCE,
+with_async_user_confirmation = auth0_ai.with_async_user_confirmation(
+    audience=settings.SHOP_API_AUDIENCE,
+    # add any scopes you want to use with your API
     scopes=["openid", "product:buy"],
     binding_message=lambda product, quantity: "Do you want to buy {quantity} {product}?",
     user_id=lambda *_, **__: ensure_config()

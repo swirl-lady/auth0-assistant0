@@ -18,7 +18,7 @@ async def api_route(
     try:
         # Build target URL
         query_string = str(request.url.query)
-        target_url = f"{settings.LANGGRAPH_URL}/{full_path}"
+        target_url = f"{settings.LANGGRAPH_API_URL}/{full_path}"
         if query_string:
             target_url += f"?{query_string}"
 
