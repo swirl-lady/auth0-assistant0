@@ -10,26 +10,19 @@ auth0_ai = Auth0AI(
             "domain": settings.AUTH0_DOMAIN,
             "client_id": settings.AUTH0_CLIENT_ID,
             "client_secret": settings.AUTH0_CLIENT_SECRET,
-            "client_assertion_signing_alg": None,
-            "client_assertion_signing_key": None,
-            "telemetry": None,
-            "timeout": None,
-            "protocol": None,
         }
     )
 )
 
-
-with_calendar_free_busy_access = auth0_ai.with_federated_connection(
+with_calendar_access = auth0_ai.with_federated_connection(
     connection="google-oauth2",
-    scopes=["https://www.googleapis.com/auth/calendar.freebusy"],
+    scopes=["https://www.googleapis.com/auth/calendar.events"],
 )
 
 protect_tool = auth0_ai.with_async_user_confirmation(
     audience=settings.AUTH0_SHOP_AUDIENCE,
     scopes=["openid", "product:buy"],
-    binding_message=lambda product,
-    quantity: "Do you want to buy {quantity} {product}?",
+    binding_message=lambda product, quantity: "Do you want to buy {quantity} {product}?",
     user_id=lambda *_, **__: ensure_config()
     .get("configurable")
     .get("_credentials")

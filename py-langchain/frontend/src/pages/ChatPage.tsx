@@ -39,21 +39,21 @@ export default function ChatPage() {
         <li className="text-l">
           🤝
           <span className="ml-2">
-            This template showcases a simple chatbot using Vercel's{" "}
+            This template showcases a simple chatbot using{" "}
             <a
               className="text-blue-500"
-              href="https://sdk.vercel.ai/docs"
+              href="https://www.langchain.com/langgraph"
               target="_blank"
             >
-              AI SDK
+              LangGraph
             </a>{" "}
             in a{" "}
             <a
               className="text-blue-500"
-              href="https://nextjs.org/"
+              href="https://fastapi.tiangolo.com/"
               target="_blank"
             >
-              Next.js
+              FastAPI
             </a>{" "}
             project.
           </span>

@@ -1,4 +1,4 @@
-## Assistant0: An AI Personal Assistant Secured with Auth0 - LangGraph Python/FastAPI Version
+# Assistant0: An AI Personal Assistant Secured with Auth0 - LangGraph Python/FastAPI Version
 
 Assistant0 an AI personal assistant that consolidates your digital life by dynamically accessing multiple tools to help you stay organized and efficient.
 
@@ -16,7 +16,7 @@ First, clone this repo and download it locally.
 
 ```bash
 git clone https://github.com/auth0-samples/auth0-assistant0.git
-cd auth0-assistant0/python-langchain
+cd auth0-assistant0/py-langchain
 ```
 
 The project is divided into two parts:
@@ -30,34 +30,43 @@ The project is divided into two parts:
 cd backend
 ```
 
-Next, you'll need to set up environment variables in your repo's `.env` file. Copy the `.env.example` file to `.env.local`.
+Next, you'll need to set up environment variables in your repo's `.env` file. Copy the `.env.example` file to `.env`.
 
 To start with the basic examples, you'll just need to add your OpenAI API key and Auth0 credentials.
 
 - To start with the examples, you'll just need to add your OpenAI API key and Auth0 credentials for the Web app.
   - You can setup a new Auth0 tenant with an Auth0 Web App and Token Vault following the Prerequisites instructions [here](https://auth0.com/ai/docs/call-others-apis-on-users-behalf).
-  - An Auth0 FGA account, you can create one [here](https://dashboard.fga.dev). Add the FGA store ID, client ID, client secret, and API URL to the `.env.local` file.
+  - An Auth0 FGA account, you can create one [here](https://dashboard.fga.dev). Add the FGA store ID, client ID, client secret, and API URL to the `.env` file.
 
 Next, install the required packages using your preferred package manager, e.g. uv:
 
 ```bash
-uv sync
+uv sync --frozen
 ```
 
 Now you're ready to run the development server:
 
 ```bash
 source .venv/bin/activate
+uv pip install auth0_fastapi # install the auth0 fastapi package
 fastapi dev app/main.py
 ```
 
-Next, you'll need to start an in-memory LangGraph server on port 54367, to do so run:
+### Start the LangGraph server
+
+Next, you'll need to start an in-memory LangGraph server on port 54367, to do so open a new terminal and run:
 
 ```bash
+source .venv/bin/activate
+uv pip install -U langgraph-api
 langgraph dev --port 54367 --allow-blocking
 ```
 
-Finally, you can start the frontend server:
+### Start the frontend server
+
+Rename `.env.example` file to `.env` in the `frontend` directory.
+
+Finally, you can start the frontend server in another terminal:
 
 ```bash
 cd frontend
@@ -65,7 +74,7 @@ npm install
 npm run dev
 ```
 
-This will start a React vite server on port 54367.
+This will start a React vite server on port 5173.
 
 ![A streaming conversation between the user and the AI](./public/images/home-page.png)
 
