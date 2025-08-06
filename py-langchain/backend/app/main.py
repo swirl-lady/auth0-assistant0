@@ -5,6 +5,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from app.core.config import settings
 from app.api.api_router import api_router
 from app.core.auth import auth_client
+from app.core.db import engine
 
 app = FastAPI(
     title=settings.APP_NAME,

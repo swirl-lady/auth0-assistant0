@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     SHOP_API_AUDIENCE: str = ""
 
     OPENAI_API_KEY: str
+    DATABASE_URI: str
 
     LANGGRAPH_API_URL: str = "http://localhost:54367"
     LANGGRAPH_API_KEY: str = ""
