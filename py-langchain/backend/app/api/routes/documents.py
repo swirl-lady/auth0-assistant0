@@ -1,5 +1,7 @@
 from datetime import datetime
 import base64
+import PyPDF2
+from io import BytesIO
 from fastapi import APIRouter, Depends, File, UploadFile
 from fastapi.exceptions import HTTPException
 from pydantic import BaseModel
@@ -9,6 +11,7 @@ from app.core.auth import auth_client
 from app.core.db import engine
 from app.core.fga import authorization_manager
 from app.models.documents import Document, DocumentWithoutContent
+from app.core.rag import generate_embeddings
 
 documents_router = APIRouter(prefix="/documents", tags=["documents"])
 
@@ -78,7 +81,18 @@ async def upload_document(
             detail=f"File size exceeds the maximum allowed size of {MAX_FILE_SIZE_MB} MB",
         )
 
+    # Get the document's content
+    file_text = ""
+    if file_type == "application/pdf":
+        pdf_stream = BytesIO(binary_content)
+        pdf_reader = PyPDF2.PdfReader(pdf_stream)
+        for page in pdf_reader.pages:
+            file_text += page.extract_text()
+    else:
+        file_text = binary_content.decode("utf-8")
+
     with Session(engine) as db_session:
+        # Create the document
         document = Document(
             content=binary_content,
             file_name=file_name,
@@ -91,6 +105,14 @@ async def upload_document(
         )
 
         db_session.add(document)
+
+        embeddings = generate_embeddings(
+            document_id=document.id, file_name=file_name, text=file_text
+        )
+
+        if len(embeddings) > 0:
+            db_session.add_all(embeddings)
+
         db_session.commit()
 
         # Write the relationship tuple to FGA
@@ -121,7 +143,7 @@ class ShareDocumentRequest(BaseModel):
 
 @documents_router.post("/{document_id}/share")
 async def share_document(
-    document_id: int,
+    document_id: str,
     input: ShareDocumentRequest,
     auth_session=Depends(auth_client.require_session),
 ):
@@ -150,7 +172,7 @@ async def share_document(
 
 @documents_router.delete("/{document_id}")
 async def delete_document(
-    document_id: int, auth_session=Depends(auth_client.require_session)
+    document_id: str, auth_session=Depends(auth_client.require_session)
 ):
     with Session(engine) as db_session:
         shared_with = db_session.exec(

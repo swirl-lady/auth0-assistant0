@@ -1,9 +1,10 @@
+import uuid
 from datetime import datetime
 from sqlmodel import Field, SQLModel, ARRAY, Column, String
 
 
 class DocumentWithoutContent(SQLModel):
-    id: int = Field(default=None, primary_key=True)
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     file_name: str
     file_type: str
     created_at: datetime
