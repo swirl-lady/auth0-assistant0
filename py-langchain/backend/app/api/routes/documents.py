@@ -2,10 +2,12 @@ from datetime import datetime
 import base64
 from fastapi import APIRouter, Depends, File, UploadFile
 from fastapi.exceptions import HTTPException
-from sqlmodel import Session, select
+from pydantic import BaseModel
+from sqlmodel import Session, select, update, col, delete
 
 from app.core.auth import auth_client
 from app.core.db import engine
+from app.core.fga import authorization_manager
 from app.models.documents import Document, DocumentWithoutContent
 
 documents_router = APIRouter(prefix="/documents", tags=["documents"])
@@ -32,7 +34,7 @@ def get_documents(
                 Document.user_id,
                 Document.user_email,
                 Document.shared_with,
-            )
+            ).where(Document.user_id == user.get("sub"))
         ).all()
 
         return [
@@ -91,6 +93,9 @@ async def upload_document(
         db_session.add(document)
         db_session.commit()
 
+        # Write the relationship tuple to FGA
+        await authorization_manager.add_relation(user.get("email"), str(document.id))
+
         return document
 
 
@@ -110,17 +115,63 @@ def get_document_content(document_id: str):
         return encoded_content
 
 
-@documents_router.delete(
-    "/{document_id}", dependencies=[Depends(auth_client.require_session)]
-)
-def delete_document(document_id: str):
-    with Session(engine) as db_session:
-        document = db_session.get(Document, document_id)
+class ShareDocumentRequest(BaseModel):
+    email_addresses: list[str]
 
-        if not document:
+
+@documents_router.post("/{document_id}/share")
+async def share_document(
+    document_id: int,
+    input: ShareDocumentRequest,
+    auth_session=Depends(auth_client.require_session),
+):
+    with Session(engine) as db_session:
+        shared_with = db_session.exec(
+            select(Document.shared_with).where(col(Document.id) == document_id)
+        ).first()
+
+        if shared_with is None:
             raise HTTPException(status_code=404, detail="Document not found")
 
-        db_session.delete(document)
+        merged_shared_with = list(
+            set([email for email in shared_with] + input.email_addresses)
+        )
+
+        db_session.exec(
+            update(Document)
+            .where(col(Document.id) == document_id)
+            .values(shared_with=merged_shared_with)
+        )
+        db_session.commit()
+
+        for email in input.email_addresses:
+            await authorization_manager.add_relation(email, str(document_id), "viewer")
+
+
+@documents_router.delete("/{document_id}")
+async def delete_document(
+    document_id: int, auth_session=Depends(auth_client.require_session)
+):
+    with Session(engine) as db_session:
+        shared_with = db_session.exec(
+            select(Document.shared_with).where(col(Document.id) == document_id)
+        ).first()
+
+        if shared_with is None:
+            raise HTTPException(status_code=404, detail="Document not found")
+
+        # Remove the relationship tuple from FGA
+        user = auth_session.get("user")
+        await authorization_manager.delete_relation(user.get("email"), str(document_id))
+
+        # Delete the shared_with relationships from FGA
+        for shared_with_email in shared_with:
+            await authorization_manager.delete_relation(
+                shared_with_email, str(document_id), "viewer"
+            )
+
+        # Delete the document from the database
+        db_session(delete(Document).where(col(Document.id) == document_id))
         db_session.commit()
 
         return {"message": "Document deleted successfully"}

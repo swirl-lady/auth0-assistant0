@@ -5,4 +5,6 @@ from app.core.config import settings
 
 engine = create_engine(settings.DATABASE_URI)
 
-SQLModel.metadata.create_all(engine)
+
+def init_db():
+    SQLModel.metadata.create_all(engine)
