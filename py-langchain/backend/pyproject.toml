@@ -17,8 +17,10 @@ dependencies = [
     "langgraph>=0.5.4",
     "pydantic-settings>=2.10.1",
     "sqlmodel>=0.0.24",
-    "psycopg2-binary>=2.9.10",
     "openfga-sdk>=0.9.5",
-    "pgvector>=0.4.1",
     "pypdf2>=3.0.1",
+    "psycopg>=3.2.9",
+    "psycopg-binary>=3.2.9",
+    "langchain-postgres>=0.0.15",
+    "greenlet>=3.2.3",
 ]

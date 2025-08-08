@@ -3,7 +3,7 @@ from sqlmodel import Session, create_engine, SQLModel, text
 from app.models import models
 from app.core.config import settings
 
-engine = create_engine(settings.DATABASE_URI)
+engine = create_engine(settings.DATABASE_URL)
 
 
 def init_db():

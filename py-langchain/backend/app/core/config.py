@@ -39,7 +39,7 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str
 
     # Database
-    DATABASE_URI: str
+    DATABASE_URL: str
 
     # LangGraph server
     LANGGRAPH_API_URL: str = "http://localhost:54367"
