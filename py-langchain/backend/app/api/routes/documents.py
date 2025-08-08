@@ -1,5 +1,6 @@
 from datetime import datetime
 import base64
+import uuid
 import PyPDF2
 from io import BytesIO
 from fastapi import APIRouter, Depends, File, UploadFile
@@ -113,10 +114,11 @@ async def upload_document(
         if len(embeddings) > 0:
             db_session.add_all(embeddings)
 
+        doc_id = str(document.id)
         db_session.commit()
 
         # Write the relationship tuple to FGA
-        await authorization_manager.add_relation(user.get("email"), str(document.id))
+        await authorization_manager.add_relation(user.get("email"), doc_id)
 
         return document
 
@@ -127,6 +129,7 @@ async def upload_document(
 )
 def get_document_content(document_id: str):
     with Session(engine) as db_session:
+        print("Getting document content", document_id)
         document = db_session.get(Document, document_id)
 
         if not document:
@@ -193,7 +196,7 @@ async def delete_document(
             )
 
         # Delete the document from the database
-        db_session(delete(Document).where(col(Document.id) == document_id))
+        db_session.exec(delete(Document).where(col(Document.id) == document_id))
         db_session.commit()
 
         return {"message": "Document deleted successfully"}
