@@ -129,7 +129,6 @@ async def upload_document(
 )
 def get_document_content(document_id: str):
     with Session(engine) as db_session:
-        print("Getting document content", document_id)
         document = db_session.get(Document, document_id)
 
         if not document:
