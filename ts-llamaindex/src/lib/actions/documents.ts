@@ -11,13 +11,16 @@ import { db } from '@/lib/db';
 import { generateEmbeddings } from '@/lib/rag/embedding';
 import { embeddings as embeddingsTable } from '@/lib/db/schema/embeddings';
 import { addRelation, deleteRelation } from '@/lib/fga/fga';
+import { auth0 } from '@/lib/auth0';
 
 export const createDocument = async (input: NewDocumentParams, text: string) => {
-  const { content, fileName, fileType, userId, userEmail, sharedWith } = insertDocumentSchema.parse(input);
+  const session = await auth0.getSession();
+  const user = session?.user!;
+  const { content, fileName, fileType, sharedWith } = insertDocumentSchema.parse(input);
 
   const [document] = await db
     .insert(documentsTable)
-    .values({ content, fileName, fileType, userId, userEmail, sharedWith })
+    .values({ content, fileName, fileType, userId: user.sub, userEmail: user.email!, sharedWith })
     .returning();
 
   const embeddings = await generateEmbeddings(text);
@@ -32,16 +35,15 @@ export const createDocument = async (input: NewDocumentParams, text: string) => 
     );
 
     // write the relationship tuples to FGA
-    await addRelation(userEmail, document.id);
+    await addRelation(user.email!, document.id);
   }
 
   return true;
 };
 
-export async function getDocumentsForUser(
-  userId: string,
-  userEmail: string,
-): Promise<Omit<DocumentParams, 'content'>[]> {
+export async function getDocumentsForUser(): Promise<Omit<DocumentParams, 'content'>[]> {
+  const session = await auth0.getSession();
+  const user = session?.user!;
   try {
     const userDocuments = await db
       .select({
@@ -55,7 +57,7 @@ export async function getDocumentsForUser(
         userEmail: documentsTable.userEmail,
       })
       .from(documentsTable)
-      .where(or(eq(documentsTable.userId, userId), arrayContains(documentsTable.sharedWith, [userEmail])))
+      .where(or(eq(documentsTable.userId, user.sub), arrayContains(documentsTable.sharedWith, [user.email!])))
       .orderBy(desc(documentsTable.createdAt)); // Show newest first
 
     return userDocuments;
@@ -92,9 +94,11 @@ export async function shareDocument(documentId: string, sharedWith: string[]) {
   }
 }
 
-export async function deleteDocument(documentId: string, userEmail: string) {
+export async function deleteDocument(documentId: string) {
+  const session = await auth0.getSession();
+  const user = session?.user!;
   // delete the relationship tuples from FGA
-  await deleteRelation(userEmail, documentId);
+  await deleteRelation(user.email!, documentId);
   const currentSharedWith = await db
     .select({ sharedWith: documentsTable.sharedWith })
     .from(documentsTable)

@@ -36,6 +36,8 @@ export const insertDocumentSchema = documentSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+  userId: true,
+  userEmail: true,
 });
 
 // Type for documents - used to type API request params and within Components
