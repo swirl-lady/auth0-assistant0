@@ -16,7 +16,7 @@ export const getContextDocumentsTool = tool({
   description:
     'Use the tool when user asks for documents or projects or anything that is stored in the knowledge base.',
   parameters: z.object({
-    question: z.string().describe('the users question'),
+    question: z.string(),
   }),
   execute: async ({ question }) => {
     const session = await auth0.getSession();
@@ -34,8 +34,7 @@ export const getContextDocumentsTool = tool({
       }),
     });
 
-    // const documents = await findRelevantContent(question, 25);
-    const documents = [];
+    const documents = await findRelevantContent(question, 25);
     // filter docs based on FGA authorization
     const context = await retriever.filter(documents);
     return context;
