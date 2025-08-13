@@ -15,13 +15,34 @@ To start with the basic examples, you'll just need to add your OpenAI API key an
 Next, install the required packages using your preferred package manager, e.g. uv:
 
 ```bash
-uv sync --frozen
+uv sync
+```
+
+Now you're ready to start and migrate the database:
+
+```bash
+# start the postgres database
+docker compose up -d
+```
+
+Initialize FGA store:
+
+```bash
+source .venv/bin/activate
+python -m app.core.fga_init
 ```
 
 Now you're ready to run the development server:
 
 ```bash
 source .venv/bin/activate
-uv pip install auth0_fastapi # install the auth0 fastapi package
 fastapi dev app/main.py
+```
+
+Next, you'll need to start an in-memory LangGraph server on port 54367, to do so open a new terminal and run:
+
+```bash
+source .venv/bin/activate
+uv pip install -U langgraph-api
+langgraph dev --port 54367 --allow-blocking
 ```

@@ -44,6 +44,8 @@ bun install # or npm install
 docker compose up -d
 # create the database schema
 bun db:migrate # or npm run db:migrate
+# initialize FGA store
+bun fga:init # or npm run fga:init
 ```
 
 Now you're ready to run the development server:

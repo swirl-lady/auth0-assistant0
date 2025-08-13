@@ -32,8 +32,8 @@ class Settings(BaseSettings):
     FGA_AUTHORIZATION_MODEL_ID: str | None = None
 
     # Shop API
-    SHOP_API_URL: str = "http://localhost:3001/api/shop"
-    SHOP_API_AUDIENCE: str = "https://api.shop-online-demo.com"
+    SHOP_API_URL: str = ""
+    SHOP_API_AUDIENCE: str = ""
 
     # OpenAI
     OPENAI_API_KEY: str

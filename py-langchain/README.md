@@ -41,21 +41,27 @@ To start with the basic examples, you'll just need to add your OpenAI API key an
 Next, install the required packages using your preferred package manager, e.g. uv:
 
 ```bash
-uv sync --frozen
+uv sync
 ```
 
-Now you're ready to start and migrate the database:
+Now you're ready to start the database:
 
 ```bash
 # start the postgres database
 docker compose up -d
 ```
 
+Initialize FGA store:
+
+```bash
+source .venv/bin/activate
+python -m app.core.fga_init
+```
+
 Now you're ready to run the development server:
 
 ```bash
 source .venv/bin/activate
-uv pip install auth0_fastapi # install the auth0 fastapi package
 fastapi dev app/main.py
 ```
 
@@ -77,6 +83,7 @@ Finally, you can start the frontend server in another terminal:
 
 ```bash
 cd frontend
+cp .env.example .env # Copy the `.env.example` file to `.env`.
 npm install
 npm run dev
 ```
