@@ -34,7 +34,7 @@ export default function DocumentItemActions({ doc, onActionComplete }: DocumentI
       if (!content) {
         throw new Error('Failed to download document');
       }
-      const blob = new Blob([content], { type: doc.fileType });
+      const blob = new Blob([content as any], { type: doc.fileType });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -73,7 +73,7 @@ export default function DocumentItemActions({ doc, onActionComplete }: DocumentI
   const handleDeleteConfirm = async () => {
     setIsProcessing(true);
     try {
-      await deleteDocument(doc.id, doc.userEmail);
+      await deleteDocument(doc.id);
       toast.success(`${doc.fileName} deleted successfully.`);
       onActionComplete(); // Trigger revalidation
     } catch (error) {
