@@ -54,7 +54,7 @@
         "@types/pdf-parse": "^1.1.5",
         "@types/react": "19.0.9",
         "@types/react-dom": "19.0.3",
-        "autoprefixer": "^10.4.20",
+        "autoprefixer": "^10.4.21",
         "drizzle-kit": "^0.31.1",
         "eslint": "^9.20.1",
         "eslint-config-next": "^15.1.7",
