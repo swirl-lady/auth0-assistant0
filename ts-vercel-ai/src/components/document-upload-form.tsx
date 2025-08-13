@@ -7,12 +7,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 interface DocumentUploadFormProps {
-  userId: string;
-  userEmail: string;
   onUploadSuccess: () => void; // Callback to refresh document list, etc.
 }
 
-export default function DocumentUploadForm({ userId, userEmail, onUploadSuccess }: DocumentUploadFormProps) {
+export default function DocumentUploadForm({ onUploadSuccess }: DocumentUploadFormProps) {
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -39,16 +37,10 @@ export default function DocumentUploadForm({ userId, userEmail, onUploadSuccess 
       toast.error('No File Selected: Please select a file to upload.');
       return;
     }
-    if (!userId) {
-      toast.error('Authentication Error: User ID is missing. Cannot upload file.');
-      return;
-    }
 
     setIsUploading(true);
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('userId', userId);
-    formData.append('userEmail', userEmail);
 
     try {
       const response = await fetch('/api/documents/upload', {
