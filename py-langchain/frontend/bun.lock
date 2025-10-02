@@ -4,7 +4,7 @@
     "": {
       "name": "frontend",
       "dependencies": {
-        "@auth0/ai": "^3.4.1",
+        "@auth0/ai": "file:auth0-ai-0.0.0.tgz",
         "@langchain/core": "^0.3.66",
         "@langchain/langgraph-sdk": "^0.0.101",
         "@radix-ui/react-avatar": "^1.1.10",
@@ -54,7 +54,7 @@
   "packages": {
     "@ampproject/remapping": ["@ampproject/remapping@2.3.0", "", { "dependencies": { "@jridgewell/gen-mapping": "^0.3.5", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw=="],
 
-    "@auth0/ai": ["@auth0/ai@3.4.1", "", { "dependencies": { "@openfga/sdk": "^0.8.0", "auth0": "^4.18.0", "jose": "^5.9.6", "openid-client": "^6.1.7", "stable-hash": "^0.0.5", "tempbox": "^1.1.1", "zod": "^3.24.2" } }, "sha512-CRmeD5VVvJ/wnBVdFVCOlB/UoJGJb+wbNLk6B3/DiQHm85Y4Ak20DdaM6bZIYDU5+DeBM7JpnxJIL2V3egWPyw=="],
+    "@auth0/ai": ["@auth0/ai@auth0-ai-0.0.0.tgz", { "dependencies": { "@openfga/sdk": "^0.8.0", "auth0": "^4.30.0", "jose": "^5.9.6", "openid-client": "^6.1.7", "stable-hash": "^0.0.5", "tempbox": "^1.1.1", "zod": "^3.25.76" } }],
 
     "@babel/code-frame": ["@babel/code-frame@7.27.1", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.27.1", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg=="],
 
@@ -416,7 +416,7 @@
 
     "asynckit": ["asynckit@0.4.0", "", {}, "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q=="],
 
-    "auth0": ["auth0@4.27.0", "", { "dependencies": { "jose": "^4.13.2", "undici-types": "^6.15.0", "uuid": "^9.0.0" } }, "sha512-4FGgjzKCH/f7rQLQVR5dM30asjOObeW3PyHa8bQrS4rKkuv22JoNxox26fb1FZ3hI4zEgbVbPm9x7pHrljZzrw=="],
+    "auth0": ["auth0@4.31.0", "", { "dependencies": { "jose": "^4.13.2", "undici-types": "^6.15.0", "uuid": "^9.0.0" } }, "sha512-DO9ET/o4OILQHOfNPBnF+wP3zC9IGVeCTH3pCbTlmE7+3v8RfipxkkKJ/gW3tFPb3w8qkkZHTe/SzmDjjY/CEQ=="],
 
     "axios": ["axios@1.10.0", "", { "dependencies": { "follow-redirects": "^1.15.6", "form-data": "^4.0.0", "proxy-from-env": "^1.1.0" } }, "sha512-/1xYAC4MP/HEG+3duIhFr4ZQXR4sQXOIe+o6sdqzeykGLx6Upp/1p8MHqhINOvGeP7xyNHe7tsiJByc4SSVUxw=="],
 

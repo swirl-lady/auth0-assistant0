@@ -107,20 +107,22 @@ wheels = [
 [[package]]
 name = "auth0-ai"
 version = "1.0.0b3"
-source = { registry = "https://pypi.org/simple" }
+source = { editable = "../../temp-packages/auth0-ai" }
 dependencies = [
     { name = "auth0-python" },
     { name = "openfga-sdk" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/65/f6/a8baf04dd66b6cb0163399fe8507fcc51531144230f011d0c59173c12c4a/auth0_ai-1.0.0b3.tar.gz", hash = "sha256:4b863c39307db0aeb5f2158f6b060cc02cdb0c5f904ed83abeb36df8c035a976", size = 17302, upload-time = "2025-07-22T14:01:37.701Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/b6/7b/11439d928a13646e9e46259619249ed41d9d0f57749dbe9a7df2dc18a6db/auth0_ai-1.0.0b3-py3-none-any.whl", hash = "sha256:ed8300f5ce8c7692d5f88a408ec4604c86ecf7d6df9eeece4ff1ebb38fd67188", size = 25200, upload-time = "2025-07-22T14:01:36.679Z" },
+
+[package.metadata]
+requires-dist = [
+    { name = "auth0-python", specifier = ">=4.13.0,<5.0.0" },
+    { name = "openfga-sdk", specifier = ">=0.9.5,<0.10.0" },
 ]
 
 [[package]]
 name = "auth0-ai-langchain"
 version = "1.0.0b3"
-source = { registry = "https://pypi.org/simple" }
+source = { editable = "../../temp-packages/auth0-ai-langchain" }
 dependencies = [
     { name = "auth0-ai" },
     { name = "langchain" },
@@ -129,9 +131,15 @@ dependencies = [
     { name = "langgraph-sdk" },
     { name = "openfga-sdk" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e0/b0/9ad2e5bb308f1388fd05b22c70b3f64ebc4d86604632168a392467927fb6/auth0_ai_langchain-1.0.0b3.tar.gz", hash = "sha256:0b5654b39bbbdff002ed276ccc4573b95ccae4cc4551c48fbf6d1caebbe8ad5a", size = 16399, upload-time = "2025-07-22T14:03:26.016Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/a9/a8/8b337bd29ad0753189c12f9f6db28de4610f175b1f400b0c0f7efa0715a5/auth0_ai_langchain-1.0.0b3-py3-none-any.whl", hash = "sha256:6de42d1580d6178858d31dca40f27dd3f6f51b68145131476569b606c510d090", size = 17554, upload-time = "2025-07-22T14:03:24.798Z" },
+
+[package.metadata]
+requires-dist = [
+    { name = "auth0-ai", directory = "../../temp-packages/auth0-ai" },
+    { name = "langchain", specifier = ">=0.3.26,<0.4.0" },
+    { name = "langchain-core", specifier = ">=0.3.69,<0.4.0" },
+    { name = "langgraph", specifier = ">=0.5.3,<0.6.0" },
+    { name = "langgraph-sdk", specifier = ">=0.1.73,<0.2.0" },
+    { name = "openfga-sdk", specifier = ">=0.9.5,<0.10.0" },
 ]
 
 [[package]]
@@ -150,7 +158,7 @@ wheels = [
 
 [[package]]
 name = "auth0-python"
-version = "4.10.0"
+version = "4.13.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
@@ -159,9 +167,9 @@ dependencies = [
     { name = "requests" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b1/e3/68d004f82771f7b8e5a1bdcf4334a06fdd86c975471e30101c4c0f1a0bcd/auth0_python-4.10.0.tar.gz", hash = "sha256:fca0f29cd32618803b59a940041ee78c6304de9ab5a02cd7863f82951affdee6", size = 74755, upload-time = "2025-06-10T08:56:03.628Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4f/87/3c54624c8fe121a68d36dd9f9158fa6878e4be378487b8f787ddc2fa2f3d/auth0_python-4.13.0.tar.gz", hash = "sha256:72f58bd26b078e3b493e4d24928cc75fa41842aae35cef488ed6f8db0fb701fb", size = 76115, upload-time = "2025-09-17T19:26:31.643Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/67/e4/485d49a296fbd73d5fa33e97ddf9decf6f3d8d0c52a12df466adbf9b2590/auth0_python-4.10.0-py3-none-any.whl", hash = "sha256:c005cebbbe66bbfaa593353be76d7c9d52dc41fcb9680f815067496d5f3a9968", size = 138788, upload-time = "2025-06-10T08:56:02.141Z" },
+    { url = "https://files.pythonhosted.org/packages/c0/01/3f52cf8ee6aa6e62f48020703ac3c67cf8a36ddc927dfde54b42c59a6e00/auth0_python-4.13.0-py3-none-any.whl", hash = "sha256:8e3266fcfc2e3cc4f477e01f964c0a6c9a3563653a2feb226355bc825cd4932c", size = 142088, upload-time = "2025-09-17T19:26:29.689Z" },
 ]
 
 [[package]]
@@ -208,8 +216,11 @@ dependencies = [
     { name = "itsdangerous" },
     { name = "langchain-openai" },
     { name = "langchain-postgres" },
+    { name = "langchain-text-splitters" },
     { name = "langgraph" },
+    { name = "langgraph-api" },
     { name = "langgraph-cli", extra = ["inmem"] },
+    { name = "langgraph-runtime-inmem" },
     { name = "openfga-sdk" },
     { name = "psycopg" },
     { name = "psycopg-binary" },
@@ -220,8 +231,8 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "auth0-ai", specifier = ">=0.2.0" },
-    { name = "auth0-ai-langchain", specifier = ">=1.0.0b3" },
+    { name = "auth0-ai", editable = "../../temp-packages/auth0-ai" },
+    { name = "auth0-ai-langchain", editable = "../../temp-packages/auth0-ai-langchain" },
     { name = "auth0-fastapi", specifier = ">=1.0.0b4" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.115.14" },
     { name = "google-api-python-client", specifier = ">=2.176.0" },
@@ -230,8 +241,11 @@ requires-dist = [
     { name = "itsdangerous", specifier = ">=2.2.0" },
     { name = "langchain-openai", specifier = ">=0.3.28" },
     { name = "langchain-postgres", specifier = ">=0.0.15" },
+    { name = "langchain-text-splitters", specifier = ">=0.3.0" },
     { name = "langgraph", specifier = ">=0.5.4" },
-    { name = "langgraph-cli", extras = ["inmem"], specifier = ">=0.2.12" },
+    { name = "langgraph-api", specifier = "==0.2.102" },
+    { name = "langgraph-cli", extras = ["inmem"], specifier = ">=0.3.6" },
+    { name = "langgraph-runtime-inmem", specifier = "==0.6.0" },
     { name = "openfga-sdk", specifier = ">=0.9.5" },
     { name = "psycopg", specifier = ">=3.2.9" },
     { name = "psycopg-binary", specifier = ">=3.2.9" },
@@ -841,7 +855,7 @@ wheels = [
 
 [[package]]
 name = "langchain-core"
-version = "0.3.72"
+version = "0.3.77"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonpatch" },
@@ -852,9 +866,9 @@ dependencies = [
     { name = "tenacity" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8b/49/7568baeb96a57d3218cb5f1f113b142063679088fd3a0d0cae1feb0b3d36/langchain_core-0.3.72.tar.gz", hash = "sha256:4de3828909b3d7910c313242ab07b241294650f5cb6eac17738dd3638b1cd7de", size = 567227, upload-time = "2025-07-24T00:40:08.5Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/40/cc/786184e5f6a921a2aa4d2ac51d3adf0cd037289f3becff39644bee9654ee/langchain_core-0.3.77.tar.gz", hash = "sha256:1d6f2ad6bb98dd806c6c66a822fa93808d821e9f0348b28af0814b3a149830e7", size = 580255, upload-time = "2025-10-01T14:34:37.368Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6e/7d/9f75023c478e3b854d67da31d721e39f0eb30ae969ec6e755430cb1c0fb5/langchain_core-0.3.72-py3-none-any.whl", hash = "sha256:9fa15d390600eb6b6544397a7aa84be9564939b6adf7a2b091179ea30405b240", size = 442806, upload-time = "2025-07-24T00:40:06.994Z" },
+    { url = "https://files.pythonhosted.org/packages/64/18/e7462ae0ce57caa9f6d5d975dca861e9a751e5ca253d60a809e0d833eac3/langchain_core-0.3.77-py3-none-any.whl", hash = "sha256:9966dfe3d8365847c5fb85f97dd20e3e21b1904ae87cfd9d362b7196fb516637", size = 449525, upload-time = "2025-10-01T14:34:35.672Z" },
 ]
 
 [[package]]
@@ -891,14 +905,14 @@ wheels = [
 
 [[package]]
 name = "langchain-text-splitters"
-version = "0.3.9"
+version = "0.3.11"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "langchain-core" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/91/52/d43ad77acae169210cc476cbc1e4ab37a701017c950211a11ab500fe7d7e/langchain_text_splitters-0.3.9.tar.gz", hash = "sha256:7cd1e5a3aaf609979583eeca2eb34177622570b8fa8f586a605c6b1c34e7ebdb", size = 45260, upload-time = "2025-07-24T14:38:45.14Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/11/43/dcda8fd25f0b19cb2835f2f6bb67f26ad58634f04ac2d8eae00526b0fa55/langchain_text_splitters-0.3.11.tar.gz", hash = "sha256:7a50a04ada9a133bbabb80731df7f6ddac51bc9f1b9cab7fa09304d71d38a6cc", size = 46458, upload-time = "2025-08-31T23:02:58.316Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e2/52/7638394b88bc15083fd2c3752a843784d9d2d110d68fed6437c8607fb749/langchain_text_splitters-0.3.9-py3-none-any.whl", hash = "sha256:cee0bb816211584ea79cc79927317c358543f40404bcfdd69e69ba3ccde54401", size = 33314, upload-time = "2025-07-24T14:38:43.953Z" },
+    { url = "https://files.pythonhosted.org/packages/58/0d/41a51b40d24ff0384ec4f7ab8dd3dcea8353c05c973836b5e289f1465d4f/langchain_text_splitters-0.3.11-py3-none-any.whl", hash = "sha256:cf079131166a487f1372c8ab5d0bfaa6c0a4291733d9c43a34a16ac9bcd6a393", size = 33845, upload-time = "2025-08-31T23:02:57.195Z" },
 ]
 
 [[package]]
@@ -996,7 +1010,7 @@ wheels = [
 
 [[package]]
 name = "langgraph-runtime-inmem"
-version = "0.6.8"
+version = "0.6.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "blockbuster" },
@@ -1006,9 +1020,9 @@ dependencies = [
     { name = "starlette" },
     { name = "structlog" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/70/af/5bb8de4f16412db4d894dafec4b83e8fcbe3e409fae2318ab95348843e8c/langgraph_runtime_inmem-0.6.8.tar.gz", hash = "sha256:7213e6c09fad509a112b9c57f7eafa99b61ff7965b5f867798fe916b5f670713", size = 79571, upload-time = "2025-07-30T22:42:01.192Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/04/0c/d145c6d83d36efda17b10812760711b77ec05f5bbe962c961d75b32e3c17/langgraph_runtime_inmem-0.6.0.tar.gz", hash = "sha256:b09675789a331be4a2b387c9c46de8772c4c8418e74c057b4ca24e85c25acae3", size = 77618, upload-time = "2025-07-17T16:51:01.504Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/82/60/702a2704b904abf8ae0338e9bdee2ca82b67cc1fa7b5a5fcaaa8601ab310/langgraph_runtime_inmem-0.6.8-py3-none-any.whl", hash = "sha256:749dbd1897eec1c46512f5723de7133369d5076bdadb6d164ce5c70f52ad48c6", size = 30291, upload-time = "2025-07-30T22:42:00.196Z" },
+    { url = "https://files.pythonhosted.org/packages/12/6a/9dc5769b5d2f97d1feacbbf93b180c359dff7462454b37dfef8aed4ebcf7/langgraph_runtime_inmem-0.6.0-py3-none-any.whl", hash = "sha256:312dab25bec6557f1edf95cb8bd7c8bb52f7f4bfeecaf66e7001662f095c9079", size = 29317, upload-time = "2025-07-17T16:51:00.622Z" },
 ]
 
 [[package]]
