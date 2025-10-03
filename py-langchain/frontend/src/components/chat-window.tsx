@@ -23,7 +23,7 @@ function ChatMessages(props: {
     <div className="flex flex-col max-w-[768px] mx-auto pb-12 w-full">
       {props.messages.map((m, i) => {
         return (
-          <ChatMessageBubble key={m.id} message={m} aiEmoji={props.aiEmoji} />
+          <ChatMessageBubble key={m.id} message={m} aiEmoji={props.aiEmoji} allMessages={props.messages} />
         );
       })}
     </div>
