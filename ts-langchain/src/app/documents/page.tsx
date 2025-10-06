@@ -64,7 +64,7 @@ export default async function DocumentsPage() {
                   <p className="text-sm text-muted-foreground">
                     Uploaded: {doc.createdAt ? format(doc.createdAt, 'PPP p') : 'N/A'}
                   </p>
-                  <div className="text-sm text-muted-foreground">{getSharingStatus(doc.sharedWith)}</div>
+                  <p className="text-sm text-muted-foreground">{getSharingStatus(doc.sharedWith)}</p>
                 </div>
                 <DocumentItemActions
                   doc={doc}

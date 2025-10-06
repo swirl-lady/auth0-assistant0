@@ -47,7 +47,7 @@
     "dotenv": "^17.0.1",
     "drizzle-orm": "^0.43.1",
     "drizzle-zod": "^0.7.1",
-    "googleapis": "^148.0.0",
+    "googleapis": "^161.0.0",
     "jose": "^6.1.0",
     "langchain": "0.3.30",
     "langgraph-nextjs-api-passthrough": "^0.1.4",
