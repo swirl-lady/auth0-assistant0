@@ -38,9 +38,8 @@ export const withAsyncAuthorization = auth0AI.withAsyncAuthorization({
     return config?.configurable?._credentials?.user?.sub;
   },
   bindingMessage: async ({ product, qty }) => `Do you want to buy ${qty} ${product}`,
-  scopes: ['openid', 'product:buy'],
+  scopes: ['openid', 'buy:product'],
   audience: process.env['SHOP_API_AUDIENCE']!,
-
   /**
    * Note: setting a requestedExpiry to >= 301 will currently ensure email is used. Otherwise,
    * the default is to use push notification if available.
