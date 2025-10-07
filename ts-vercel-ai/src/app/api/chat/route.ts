@@ -31,8 +31,6 @@ Use the tools as needed to answer the user's question. Render the email body as 
 export async function POST(req: NextRequest) {
   const { id, messages }: { id: string; messages: Array<UIMessage> } = await req.json();
 
-  // const sanitizedMessages = sanitize(messages);
-
   setAIContext({ threadID: id });
 
   const tools = {
@@ -91,11 +89,3 @@ export async function POST(req: NextRequest) {
 
   return createUIMessageStreamResponse({ stream });
 }
-
-// Vercel AI tends to get stuck when there are incomplete tool calls in messages
-// function sanitize(messages: UIMessage[]) {
-//   return messages.filter(
-//     (m) =>
-//       !(m.role === 'assistant' && Array.isArray(m.parts) && m.parts.length > 0 && !m.parts.some((p: any) => !!p?.text)),
-//   );
-// }
