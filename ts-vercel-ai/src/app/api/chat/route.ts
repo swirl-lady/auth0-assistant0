@@ -43,6 +43,8 @@ export async function POST(req: NextRequest) {
     getContextDocumentsTool,
   };
 
+  const modelMessages = convertToModelMessages(messages);
+
   const stream = createUIMessageStream({
     originalMessages: messages,
     execute: withInterruptions(
@@ -50,7 +52,7 @@ export async function POST(req: NextRequest) {
         const result = streamText({
           model: openai.chat('gpt-4o-mini'),
           system: AGENT_SYSTEM_TEMPLATE,
-          messages: convertToModelMessages(messages),
+          messages: modelMessages,
           tools,
           onFinish: (output) => {
             if (output.finishReason === 'tool-calls') {
@@ -77,7 +79,7 @@ export async function POST(req: NextRequest) {
         );
       },
       {
-        messages: messages,
+        messages: modelMessages,
         tools,
       },
     ),
