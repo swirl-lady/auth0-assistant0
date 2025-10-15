@@ -5,8 +5,8 @@ description = "Assistant0: An AI Personal Assistant Secured with Auth0 - LangGra
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "auth0-ai",
-    "auth0-ai-langchain",
+    "auth0-ai>=1.0.0b4",
+    "auth0-ai-langchain>=1.0.0b4",
     "auth0-fastapi>=1.0.0b4",
     "fastapi[standard]>=0.115.14",
     "google-api-python-client>=2.176.0",
@@ -27,7 +27,3 @@ dependencies = [
     "langchain-postgres>=0.0.15",
     "greenlet>=3.2.3",
 ]
-
-[tool.uv.sources]
-auth0-ai = { path = "../../temp-packages/auth0-ai", editable = true }
-auth0-ai-langchain = { path = "../../temp-packages/auth0-ai-langchain", editable = true }

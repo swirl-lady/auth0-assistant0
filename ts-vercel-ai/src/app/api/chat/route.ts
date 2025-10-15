@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
           model: openai.chat('gpt-4o-mini'),
           system: AGENT_SYSTEM_TEMPLATE,
           messages: modelMessages,
-          tools,
+          tools: tools as any,
           onFinish: (output) => {
             if (output.finishReason === 'tool-calls') {
               const lastMessage = output.content[output.content.length - 1];
@@ -79,8 +79,8 @@ export async function POST(req: NextRequest) {
         );
       },
       {
-        messages: modelMessages,
-        tools,
+        messages: messages,
+        tools: tools as any,
       },
     ),
     onError: errorSerializer((err) => {
