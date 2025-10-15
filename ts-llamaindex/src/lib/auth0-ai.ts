@@ -27,7 +27,7 @@ export const withAsyncAuthorization = auth0AI.withAsyncAuthorization({
     return user?.sub as string;
   },
   bindingMessage: async ({ product, qty }) => `Do you want to buy ${qty} ${product}`,
-  scopes: ['openid', 'buy:product'],
+  scopes: ['openid', 'product:buy'],
   audience: process.env['AUDIENCE']!,
 
   /**

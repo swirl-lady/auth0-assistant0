@@ -22,7 +22,7 @@ with_calendar_access = auth0_ai.with_token_vault(
 with_async_authorization = auth0_ai.with_async_authorization(
     audience=settings.SHOP_API_AUDIENCE,
     # add any scopes you want to use with your API
-    scopes=["openid", "buy:product"],
+    scopes=["openid", "product:buy"],
     binding_message=lambda product,
     quantity: f"Do you want to buy {quantity} {product}",
     user_id=lambda *_, **__: ensure_config()
