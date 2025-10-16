@@ -101,7 +101,6 @@ async function initializeAgent(messages: UIMessage[] = []) {
 export async function POST(req: NextRequest) {
   const { id, messages }: { id: string; messages: UIMessage[] } = await req.json();
 
-  // const sanitizedMessages = sanitizeMessages(messages);
 
   setAIContext({ threadID: id });
 
